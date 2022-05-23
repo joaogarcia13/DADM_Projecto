@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2">
+
+    <EditText
+        android:id="@+id/registar_input_user"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_text"
+        android:duplicateParentState="false"
+        android:editable="true"
+        android:ems="10"
+
+        android:inputType="textPersonName"
+        android:textIsSelectable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_user"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/registar_input_email"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_text"
+        android:duplicateParentState="false"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textIsSelectable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_email"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/registar_email"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="18dp"
+        android:editable="false"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/email"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_input_user" />
+
+    <TextView
+        android:id="@+id/password_txt"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/password"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_input_email" />
+
+    <TextView
+        android:id="@+id/registar_password2"
+        android:layout_width="335dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/passconf"
+        android:textColor="#C6C6C6"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_input_pass" />
+
+    <TextView
+        android:id="@+id/registar_user"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:editable="false"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/user"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registar_confirmar"
+        android:layout_width="367dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="23dp"
+        android:background="@drawable/round_btn"
+        android:editable="false"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:onClick="registarUtilizador"
+        android:text="Registar Conta"
+        android:textAllCaps="false"
+        android:textColor="#C6C6C6"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_checkBox"
+        tools:ignore="UsingOnClickInXml" />
+
+    <CheckBox
+        android:id="@+id/registar_checkBox"
+        android:layout_width="349dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="19dp"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="Aceitar Termos e Condições de Serviço"
+        android:textAlignment="textStart"
+        android:textColor="#c6c6c6"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_input_pass2" />
+
+    <EditText
+        android:id="@+id/registar_input_pass"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="38dp"
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_txt"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/registar_input_pass2"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="39dp"
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_password2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

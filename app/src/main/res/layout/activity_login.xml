@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sign_in"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2">
+
+    <TextView
+        android:id="@+id/registar_email"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="60dp"
+        android:editable="false"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/email_username"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/password_txt"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="37dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/password"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_email" />
+
+    <EditText
+        android:id="@+id/login_email"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="57dp"
+        android:background="@drawable/input_text"
+        android:duplicateParentState="false"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textIsSelectable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_email"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="335dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="57dp"
+        android:background="@drawable/input_text"
+        android:editable="true"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textIsSelectable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_txt"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/confirmar_login"
+        android:layout_width="335dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="52dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="Confirmar"
+        android:textAllCaps="false"
+        android:textColor="#C6C6C6"
+        android:textSize="34sp"
+        android:onClick="Autenticar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/recuperar_login"
+        android:layout_width="333dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="93dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="Recuperar Conta"
+        android:textAllCaps="false"
+        android:textColor="#C6C6C6"
+        android:textSize="24sp"
+        android:onClick="RecuperarConta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

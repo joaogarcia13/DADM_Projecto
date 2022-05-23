@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "733981161671",
+    "project_id": "dadm-eb67c",
+    "storage_bucket": "dadm-eb67c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:733981161671:android:3e52ac3b9e170e5bb9a6e2",
+        "android_client_info": {
+          "package_name": "com.example.projecto_dadm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "733981161671-3jmu5rrvcvl8euuinu7vtang6tl8alqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSUE_JT_Ri5ubstMfu2kBZWSSE5teyJzI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "733981161671-3jmu5rrvcvl8euuinu7vtang6tl8alqe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
