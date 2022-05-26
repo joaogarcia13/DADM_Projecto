@@ -148,6 +148,7 @@
         android:drawableTop="@drawable/pesquisar"
         android:paddingTop="15dp"
         android:text="Procurar Item"
+        android:onClick="MudarLayoutProcurar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,6 +178,7 @@
         android:drawableTop="@drawable/localizacao"
         android:paddingTop="15dp"
         android:text="Items Perto de Mim"
+        android:onClick="MudarLayoutPertoMim"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view5" />
 
@@ -233,6 +235,7 @@
         android:drawableTop="@drawable/upload2"
         android:paddingTop="10dp"
         android:text="Registar Item"
+        android:onClick="MudarLayoutRegistarItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

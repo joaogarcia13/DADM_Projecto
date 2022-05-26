@@ -32,7 +32,6 @@ public class splash_activity extends AppCompatActivity {
         Intent switchActivityIntent = new Intent(this, login_activity.class);
         startActivity(switchActivityIntent);
         finish();
-
     }
     public void MudarLayoutRegistar(View view) {
         Intent switchActivityIntent = new Intent(this, registar_activity.class);
