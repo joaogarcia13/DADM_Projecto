@@ -88,8 +88,10 @@ public class login_activity extends AppCompatActivity {
         }
     }
 
-    //TODO redirecionar para o menu
     private void updateUI(FirebaseUser user) {
-
+        ((global) this.getApplication()).setUser(user);
+        Intent switchActivityIntent = new Intent(this, menu_activity.class);
+        startActivity(switchActivityIntent);
+        finish();
     }
 }

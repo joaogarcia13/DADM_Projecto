@@ -23,6 +23,7 @@ public class splash_activity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+            ((global) this.getApplication()).setUser(currentUser);
             reload();
         }
     }
@@ -39,9 +40,10 @@ public class splash_activity extends AppCompatActivity {
         finish();
     }
 
-    //TODO funcao que redereciona para o menu principal caso o utilizador ja esteja logged in
     //TODO verificar se o utilizador tem a net ligada
     private void reload() {
-
+        Intent switchActivityIntent = new Intent(this, menu_activity.class);
+        startActivity(switchActivityIntent);
+        finish();
     }
 }
