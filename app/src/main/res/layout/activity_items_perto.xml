@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/items_perto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background4">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/item_perto_Menu2"
+        android:layout_width="305dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="@string/menu"
+        android:textColor="#C6C6C6"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/item_perto_relativeLayout"
+        android:layout_width="360dp"
+        android:layout_height="601dp"
+        android:layout_marginTop="33dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/item_perto_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/input_text"
+            android:fontFamily="@font/ibm_plex_mono_medium"
+            android:text="@string/items_perto"
+            android:textAlignment="center"
+            android:textColor="#1A0534"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_perto_recicle"
+            android:layout_width="360dp"
+            android:layout_height="551dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/input_text"
+            tools:layout_editor_absoluteX="26dp"
+            tools:layout_editor_absoluteY="83dp" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

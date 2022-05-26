@@ -12,5 +12,6 @@
     <string name="nome"><u>Nome</u></string>
     <string name="descricao"><u>Descrição</u></string>
     <string name="fotografia"><u>Fotografia</u></string>
+    <string name="items_perto"><u>Items Perto de Si</u></string>
 
 </resources>

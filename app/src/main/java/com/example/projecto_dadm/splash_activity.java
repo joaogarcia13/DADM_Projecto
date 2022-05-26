@@ -40,6 +40,7 @@ public class splash_activity extends AppCompatActivity {
     }
 
     //TODO funcao que redereciona para o menu principal caso o utilizador ja esteja logged in
+    //TODO verificar se o utilizador tem a net ligada
     private void reload() {
 
     }
