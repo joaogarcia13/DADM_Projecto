@@ -8,5 +8,6 @@
     <string name="email"><u>Email</u></string>
     <string name="user"><u>Nome Utilizador</u></string>
     <string name="passconf"><u>Reintroduza a Password</u></string>
+    <string name="menu">Menu</string>
 
 </resources>
