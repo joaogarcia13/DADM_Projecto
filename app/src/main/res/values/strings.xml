@@ -9,5 +9,8 @@
     <string name="user"><u>Nome Utilizador</u></string>
     <string name="passconf"><u>Reintroduza a Password</u></string>
     <string name="menu">Menu</string>
+    <string name="nome"><u>Nome</u></string>
+    <string name="descricao"><u>Descrição</u></string>
+    <string name="fotografia"><u>Fotografia</u></string>
 
 </resources>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/registar_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background4">
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="371dp"
+        android:layout_height="1dip"
+        android:layout_marginTop="18dp"
+        android:background="#8AFFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_descricao_input" />
+
+    <View
+        android:id="@+id/view10"
+        android:layout_width="371dp"
+        android:layout_height="1dip"
+        android:layout_marginTop="16dp"
+        android:background="#8AFFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_procurar_foto" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registar_item_Menu"
+        android:layout_width="305dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="@string/menu"
+        android:textColor="#C6C6C6"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/registar_nome"
+        android:layout_width="87dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="304dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="TextView"
+        android:textColor="#c6c6c6"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/nome" />
+
+    <TextView
+        android:id="@+id/registar_descricao"
+        android:layout_width="326dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="TextView"
+        android:textColor="#c6c6c6"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_nome_input"
+        tools:text="@string/descricao" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="196dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="11dp"
+        android:fontFamily="@font/ibm_plex_mono_light"
+        android:text="@string/fotografia"
+        android:textColor="#c6c6c6"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view9" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="372dp"
+        android:layout_height="31dp"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="(do item no local onde vei ser deixado)"
+        android:textAlignment="center"
+        android:textColor="#c6c6c6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <EditText
+        android:id="@+id/reg_item_nome_input"
+        android:layout_width="371dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_nome" />
+
+    <EditText
+        android:id="@+id/reg_item_descricao_input"
+        android:layout_width="371dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registar_descricao" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reg_item_confirmar"
+        android:layout_width="308dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/round_btn"
+        android:text="Confirmar"
+        android:textColor="#C6c6c6"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view10" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reg_item_procurar_foto"
+        android:layout_width="185dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_btn_2"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:text="Procurar Foto"
+        android:textColor="#C6c6c6"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/reg_item_tirar_foto"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reg_item_tirar_foto"
+        android:layout_width="185dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/round_btn_2"
+        android:text="Tirar Fotografia"
+        android:textColor="#C6c6c6"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/reg_item_procurar_foto"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/reg_item_reset"
+        android:layout_width="189dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="22dp"
+        android:background="@drawable/round_btn"
+        android:text="Reset"
+        android:textColor="#C6c6c6"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_confirmar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

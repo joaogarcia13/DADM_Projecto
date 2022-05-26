@@ -39,7 +39,7 @@ public class splash_activity extends AppCompatActivity {
         finish();
     }
 
-    //redericiona para o menu se o user estiver logged in
+    //TODO funcao que redereciona para o menu principal caso o utilizador ja esteja logged in
     private void reload() {
 
     }

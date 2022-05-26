@@ -88,7 +88,8 @@ public class login_activity extends AppCompatActivity {
         }
     }
 
+    //TODO redirecionar para o menu
     private void updateUI(FirebaseUser user) {
-        Log.d("wqdmqwmdwq","oinmeifnw");
+
     }
 }

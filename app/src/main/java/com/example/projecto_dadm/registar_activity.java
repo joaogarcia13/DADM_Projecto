@@ -106,6 +106,7 @@ public class registar_activity extends AppCompatActivity {
         }
     }
 
+    //TODO redirecionar para menu
     private void updateUI(FirebaseUser user) {
 
     }

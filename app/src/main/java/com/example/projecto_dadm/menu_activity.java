@@ -1,7 +1,6 @@
 package com.example.projecto_dadm;
 
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class menu_activity extends AppCompatActivity {
@@ -12,4 +11,5 @@ public class menu_activity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
     }
 
+    //TODO fazer os eventos onclick dos botoes que ligam para as restantes paginas
 }
