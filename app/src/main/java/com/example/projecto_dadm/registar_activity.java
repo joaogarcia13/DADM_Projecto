@@ -79,9 +79,8 @@ public class registar_activity extends AppCompatActivity {
                                 Map<String, User> Users = new HashMap<>();
                                 Users.put(user.getUid(), new User(email.getText().toString(), nome.getText().toString()));
                                 mDatabase.child("Users").setValue(Users);
-
                                 DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show();
-                                updateUI(user);
+                                updateUI();
                             } else {
                                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
                                 switch (errorCode) {
@@ -106,9 +105,10 @@ public class registar_activity extends AppCompatActivity {
         }
     }
 
-    //TODO redirecionar para menu
-    private void updateUI(FirebaseUser user) {
-
+    private void updateUI() {
+        Intent switchActivityIntent = new Intent(this, login_activity.class);
+        startActivity(switchActivityIntent);
+        finish();
     }
 
 }

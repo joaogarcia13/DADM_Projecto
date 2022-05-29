@@ -235,7 +235,7 @@
         android:drawableTop="@drawable/upload2"
         android:paddingTop="10dp"
         android:text="Registar Item"
-        android:onClick="MudarLayoutRegistarItem"
+        android:onClick="MudarLayoutRegistar_Item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

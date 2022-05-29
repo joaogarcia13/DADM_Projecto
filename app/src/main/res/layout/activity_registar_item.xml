@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_item_procurar_foto" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_tirar_foto" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/registar_item_Menu"
@@ -35,15 +35,15 @@
         android:layout_height="54dp"
         android:layout_marginStart="52dp"
         android:layout_marginEnd="52dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="28dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/ibm_plex_mono_medium"
         android:text="@string/menu"
+        android:onClick="redItem_menu"
         android:textColor="#C6C6C6"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="304dp"
         android:fontFamily="@font/ibm_plex_mono_light"
-        android:text="TextView"
+        android:text="@string/nome"
         android:textColor="#c6c6c6"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +70,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="64dp"
         android:fontFamily="@font/ibm_plex_mono_light"
-        android:text="TextView"
+        android:text="@string/descricao"
         android:textColor="#c6c6c6"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -138,6 +138,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/round_btn"
         android:text="Confirmar"
+        android:onClick="regItem_Confirmar"
         android:textColor="#C6c6c6"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -146,30 +147,16 @@
         app:layout_constraintTop_toBottomOf="@+id/view10" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/reg_item_procurar_foto"
-        android:layout_width="185dp"
-        android:layout_height="67dp"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/round_btn_2"
-        android:fontFamily="@font/ibm_plex_mono_medium"
-        android:text="Procurar Foto"
-        android:textColor="#C6c6c6"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/reg_item_tirar_foto"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reg_item_tirar_foto"
         android:layout_width="185dp"
         android:layout_height="67dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/round_btn_2"
         android:text="Tirar Fotografia"
+        android:onClick="Tirar_Foto_regItem"
         android:textColor="#C6c6c6"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/reg_item_procurar_foto"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -181,11 +168,20 @@
         android:layout_marginTop="22dp"
         android:background="@drawable/round_btn"
         android:text="Reset"
+        android:onClick="redItem_Reset"
         android:textColor="#C6c6c6"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_item_confirmar" />
+
+    <ImageView
+        android:id="@+id/imageViewdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="277dp"
+        tools:layout_editor_absoluteY="315dp"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
