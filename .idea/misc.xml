@@ -23,6 +23,7 @@
         <entry key="app/src/main/res/xml/fade_animation.xml" value="0.18125" />
         <entry key="app/src/main/res/xml/file_paths.xml" value="0.18177083333333333" />
         <entry key="app/src/main/res/xml/provider.xml" value="0.18177083333333333" />
+        <entry key="app/src/main/res/xml/provider_paths.xml" value="0.20364583333333333" />
         <entry key="app/src/main/res/xml/strings.xml" value="0.18229166666666666" />
       </map>
     </option>
