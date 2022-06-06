@@ -1,7 +1,5 @@
 package com.example.projecto_dadm;
 
-import com.google.firebase.database.DatabaseReference;
-
 public class User {
 
     public String nome;

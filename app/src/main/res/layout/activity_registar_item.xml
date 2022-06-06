@@ -79,7 +79,7 @@
         tools:text="@string/descricao" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/reg_item_Foto_text"
         android:layout_width="196dp"
         android:layout_height="44dp"
         android:layout_marginTop="11dp"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view9" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/reg_item_foto_desc_text"
         android:layout_width="372dp"
         android:layout_height="31dp"
         android:fontFamily="@font/ibm_plex_mono_medium"
@@ -103,7 +103,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_Foto_text" />
 
     <EditText
         android:id="@+id/reg_item_nome_input"
@@ -111,12 +111,14 @@
         android:layout_height="44dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/input_text"
+        android:editable="true"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registar_nome" />
+        app:layout_constraintTop_toBottomOf="@+id/registar_nome"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <EditText
         android:id="@+id/reg_item_descricao_input"
@@ -124,12 +126,14 @@
         android:layout_height="67dp"
         android:layout_marginTop="7dp"
         android:background="@drawable/input_text"
+        android:editable="true"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registar_descricao" />
+        app:layout_constraintTop_toBottomOf="@+id/registar_descricao"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reg_item_confirmar"
@@ -137,8 +141,8 @@
         android:layout_height="63dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/round_btn"
-        android:text="Confirmar"
         android:onClick="regItem_Confirmar"
+        android:text="Registar Item"
         android:textColor="#C6c6c6"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,7 +163,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_foto_desc_text" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/reg_item_reset"
@@ -167,13 +171,14 @@
         android:layout_height="37dp"
         android:layout_marginTop="22dp"
         android:background="@drawable/round_btn"
-        android:text="Reset"
         android:onClick="regItem_Reset"
+        android:text="Reset"
         android:textColor="#C6c6c6"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_item_confirmar" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_item_confirmar"
+        tools:ignore="TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

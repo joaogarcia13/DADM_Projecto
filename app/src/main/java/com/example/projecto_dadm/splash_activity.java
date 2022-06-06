@@ -1,9 +1,13 @@
 package com.example.projecto_dadm;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -39,7 +43,7 @@ public class splash_activity extends AppCompatActivity {
         finish();
     }
 
-    //TODO verificar se o utilizador tem a net ligada
+    //TODO verificar se o utilizador tem a net ligada em geral na aplicaçao
     private void reload() {
         Intent switchActivityIntent = new Intent(this, menu_activity.class);
         startActivity(switchActivityIntent);
