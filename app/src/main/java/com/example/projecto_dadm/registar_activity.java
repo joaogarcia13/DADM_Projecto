@@ -78,7 +78,7 @@ public class registar_activity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Map<String, User> Users = new HashMap<>();
                                 Users.put(user.getUid(), new User(email.getText().toString(), nome.getText().toString()));
-                                mDatabase.child("Users").setValue(Users);
+                                mDatabase.child("Users").push().setValue(Users);
                                 DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show();
                                 updateUI();
                             } else {

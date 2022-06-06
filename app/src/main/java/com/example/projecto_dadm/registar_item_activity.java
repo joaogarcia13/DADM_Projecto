@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
@@ -37,8 +38,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class registar_item_activity extends AppCompatActivity implements LocationListener{
@@ -109,39 +112,40 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
         //getLocation();
         Log.d("dqwdqw", String.valueOf(latitude));
         Log.d("dqwdqw", String.valueOf(longitude));
-        //TODO verificar campos vazios antes de executar codigo aseguir
-        try {
-            moradas = geocoder.getFromLocation(latitude, longitude, 5);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (moradas != null && moradas.size() > 0) {
-            morada = moradas.get(0).getAddressLine(0) + ", " + moradas.get(0).getLocality() + ", " + moradas.get(0).getCountryName();
-        }else{
-            morada = "Localizaçao indisponivél";
-        }
-        ImageView img = new ImageView(this);
-        img.setImageBitmap(resizeBitmap(selectedImage, 500)); //TODO isto nao devia estar estatico, se a descricao for muito grande o user nao consegui sair daqui
-        img.setPadding(0,0,0,10);
-        new AlertDialog.Builder(this)
-                .setTitle("Confirme os dados por favor")
-                .setMessage( "\nNome:\n " + nome.getText().toString() + "\n\nLocalização:\n " + morada + "\n\nDescricao:\n " + descricao.getText().toString() + "\n\n" )
-                .setView(img)
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        /*
-                        FirebaseUser user = mAuth.getCurrentUser();
-                        Map<String, Item> Items = new HashMap<>();
-                        Items.put(user.getUid(), new Item(nome.getText().toString(), descricao.getText().toString(), latitude, longitude, FotoB64));
-                        mDatabase.child("Items").setValue(Items);
-                        DynamicToast.makeSuccess(registar_item_activity.this, "Item registado com sucesso.").show();
-                        Intent switchActivityIntent = new Intent(this, menu_activity.class);
-                        startActivity(switchActivityIntent);
-                        finish();
-                        */
-                    }})
-                .setNegativeButton("Cancelar", null).show();
+        if (nome.getText().toString().equals("") || descricao.getText().toString().equals("") || FotoB64.equals("")){
+            DynamicToast.makeError(registar_item_activity.this, "Por favor preencha todos os campos").show();
+        }else if (latitude == 0 && longitude == 0){
+            DynamicToast.makeError(registar_item_activity.this, "Por favor ligue o gps").show();
+        }else {
+            try {
+                moradas = geocoder.getFromLocation(latitude, longitude, 5);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (moradas != null && moradas.size() > 0) {
+                morada = moradas.get(0).getAddressLine(0) + ", " + moradas.get(0).getLocality() + ", " + moradas.get(0).getCountryName();
+            } else {
+                morada = "Localizaçao indisponivél";
+            }
+            ImageView img = new ImageView(this);
+            img.setImageBitmap(resizeBitmap(selectedImage, 500));
+            img.setPadding(0, 0, 0, 10);
+            new AlertDialog.Builder(this)
+                    .setTitle("Confirme os dados por favor")
+                    .setMessage("\nNome:\n " + nome.getText().toString() + "\n\nLocalização:\n " + morada + "\n\nDescricao:\n " + descricao.getText().toString() + "\n\n")
+                    .setView(img)
+                    .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            mDatabase.child("Items").push().setValue(new Item(nome.getText().toString(), descricao.getText().toString(), latitude, longitude, FotoB64, user.getUid()));
+                            DynamicToast.makeSuccess(registar_item_activity.this, "Item registado com sucesso.").show();
+                            updateUI();
+                        }
+                    })
+                    .setNegativeButton("Cancelar", null).show();
+        }
     }
 
     public void regItem_Reset(View v) {
@@ -151,7 +155,7 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
     }
 
     public void regItem_menu(View v) {
-
+        updateUI();
     }
 
     private String encodeImage(Bitmap bm) {
@@ -270,4 +274,10 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
             return source;
         }
     }
+    private void updateUI() {
+        Intent switchActivityIntent = new Intent(this, menu_activity.class);
+        startActivity(switchActivityIntent);
+        finish();
+    }
+
 }

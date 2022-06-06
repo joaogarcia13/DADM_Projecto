@@ -14,7 +14,6 @@ public class menu_activity extends AppCompatActivity {
     }
 
     //TODO fazer os eventos onclick dos botoes que ligam para as restantes paginas
-    //TODO refazer todas as ligaçoes de botoes (tirar o onclick do xml e fazer programaticamente) nos ecrãsmenu, login e registar conta
     public void MudarLayoutRegistar_Item(View v){
         Intent switchActivityIntent = new Intent(this, registar_item_activity.class);
         startActivity(switchActivityIntent);
