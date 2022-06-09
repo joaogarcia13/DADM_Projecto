@@ -17,12 +17,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -38,13 +36,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 
-public class registar_item_activity extends AppCompatActivity implements LocationListener{
+public class registar_item_activity extends AppCompatActivity{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int LOCATION_PERMISSION_CODE = 2;
@@ -74,6 +70,7 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         geocoder = new Geocoder(this, Locale.getDefault());
+
     }
 
     @Override
@@ -109,9 +106,7 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
 
     public void regItem_Confirmar(View v) {
         //nao funciona
-        //getLocation();
-        Log.d("dqwdqw", String.valueOf(latitude));
-        Log.d("dqwdqw", String.valueOf(longitude));
+        getLocation();
 
         if (nome.getText().toString().equals("") || descricao.getText().toString().equals("") || FotoB64.equals("")){
             DynamicToast.makeError(registar_item_activity.this, "Por favor preencha todos os campos").show();
@@ -133,7 +128,7 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
             img.setPadding(0, 0, 0, 10);
             new AlertDialog.Builder(this)
                     .setTitle("Confirme os dados por favor")
-                    .setMessage("\nNome:\n " + nome.getText().toString() + "\n\nLocalização:\n " + morada + "\n\nDescricao:\n " + descricao.getText().toString() + "\n\n")
+                    .setMessage("\nNome:\n" + nome.getText().toString() + "\n\nLocalização:\n" + morada + "\n\nDescricao:\n" + descricao.getText().toString() + "\n\n")
                     .setView(img)
                     .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
@@ -199,46 +194,13 @@ public class registar_item_activity extends AppCompatActivity implements Locatio
                         "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
                 ActivityCompat.requestPermissions(registar_item_activity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_CODE);
             } else {
-                manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, new LocationListener(){
-                    // @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                    }
-                    // @Override
-                    public void onLocationChanged(Location location) {
-                        latitude = location.getLatitude();
-                        longitude = location.getLongitude();
-                    }
-                });
-                Log.d("lat:", String.valueOf(location.getLatitude()));
-                Log.d("long:", String.valueOf(location.getLongitude()));
+                Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (local != null){
+                    latitude = local.getLatitude();
+                    longitude = local.getLongitude();
+                }
             }
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
     }
 
     public static Bitmap resizeBitmap(Bitmap source, int maxLength) {
