@@ -25,6 +25,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +62,7 @@ public class registar_item_activity extends AppCompatActivity{
     private Geocoder geocoder;
     private List<Address> moradas;
     private String morada;
+    GeoFire geoFire;
 
 
     @Override
@@ -70,6 +74,7 @@ public class registar_item_activity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         geocoder = new Geocoder(this, Locale.getDefault());
+        geoFire = new GeoFire(mDatabase.child("Items"));
 
     }
 
@@ -112,6 +117,8 @@ public class registar_item_activity extends AppCompatActivity{
             DynamicToast.makeError(registar_item_activity.this, "Por favor preencha todos os campos").show();
         }else if (latitude == 0 && longitude == 0){
             DynamicToast.makeError(registar_item_activity.this, "Por favor ligue o gps").show();
+            Log.e("lat:", String.valueOf(latitude));
+            Log.e("long:", String.valueOf(longitude));
         }else {
             try {
                 moradas = geocoder.getFromLocation(latitude, longitude, 5);
@@ -119,7 +126,7 @@ public class registar_item_activity extends AppCompatActivity{
                 e.printStackTrace();
             }
             if (moradas != null && moradas.size() > 0) {
-                morada = moradas.get(0).getAddressLine(0) + ", " + moradas.get(0).getLocality() + ", " + moradas.get(0).getCountryName();
+                morada = moradas.get(0).getAddressLine(0);
             } else {
                 morada = "Localizaçao indisponivél";
             }
@@ -127,14 +134,17 @@ public class registar_item_activity extends AppCompatActivity{
             img.setImageBitmap(resizeBitmap(selectedImage, 500));
             img.setPadding(0, 0, 0, 10);
             new AlertDialog.Builder(this)
-                    .setTitle("Confirme os dados por favor")
+                    .setTitle("Confirme os dados por favor.")
                     .setMessage("\nNome:\n" + nome.getText().toString() + "\n\nLocalização:\n" + morada + "\n\nDescricao:\n" + descricao.getText().toString() + "\n\n")
                     .setView(img)
                     .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int whichButton) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            mDatabase.child("Items").push().setValue(new Item(nome.getText().toString(), descricao.getText().toString(), latitude, longitude, FotoB64, user.getUid()));
+                            String itemId = mDatabase.child("items").push().getKey();
+                            mDatabase.child("Items").child(itemId).setValue(new Item(nome.getText().toString(), descricao.getText().toString(), latitude, longitude, FotoB64, user.getUid()));
+                            geoFire = new GeoFire(mDatabase.child("Items").child(itemId));
+                            geoFire.setLocation("geofire", new GeoLocation(latitude, longitude));
                             DynamicToast.makeSuccess(registar_item_activity.this, "Item registado com sucesso.").show();
                             updateUI();
                         }
@@ -194,10 +204,23 @@ public class registar_item_activity extends AppCompatActivity{
                         "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
                 ActivityCompat.requestPermissions(registar_item_activity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_CODE);
             } else {
+                manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+
+                                double lat = location.getLatitude();
+                                double lon = location.getLongitude();
+                            }
+                        });
                 Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 if (local != null){
                     latitude = local.getLatitude();
                     longitude = local.getLongitude();
+                    if(latitude == 0 && longitude == 0) {
+                        local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        latitude = local.getLatitude();
+                        longitude = local.getLongitude();
+                    }
                 }
             }
         }
