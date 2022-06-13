@@ -13,7 +13,6 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.SearchView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -51,88 +50,8 @@ public class items_perto_activity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         geocoder = new Geocoder(this, Locale.getDefault());
         dataset = new ArrayList<String>();
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<List<String>> dataset = new ArrayList<>();
-                List<List<Double>> cordenadas = new ArrayList<>();
-                MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(findViewById(R.id.item_perto_recicle).getContext(), dataset);
-                rv.setLayoutManager(llm);
-                rv.setAdapter(adapter);
-                for (DataSnapshot nomeSnapshot : dataSnapshot.getChildren()) {
-                    List<String> dados = new ArrayList<String>();
-                    List<Double> cord = new ArrayList<Double>();
-                    if (nomeSnapshot.child("ativo").getValue(Boolean.class) == true) {
-                        dados.add(nomeSnapshot.child("nome").getValue(String.class));
-                        dados.add(nomeSnapshot.child("descricao").getValue(String.class));
-                        try {
-                            moradas = geocoder.getFromLocation(nomeSnapshot.child("latitude").getValue(double.class), nomeSnapshot.child("longitude").getValue(double.class), 5);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        if (moradas != null && moradas.size() > 0) {
-                            dados.add(moradas.get(0).getAddressLine(0));
-                        } else {
-                            dados.add("Localizaçao indisponivél");
-                        }
-                        dados.add(nomeSnapshot.child("foto").getValue(String.class));
-                        dataset.add(dados);
-                        cord.add(nomeSnapshot.child("latitude").getValue(double.class));
-                        cord.add(nomeSnapshot.child("longitude").getValue(double.class));
-                        cordenadas.add(cord);
-                        break;
-                    }
-                }
-            adapter.notifyItemInserted(0);
-            adapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    new AlertDialog.Builder(items_perto_activity.this)
-                            .setTitle("Pretende abrir Mapas ?")
-                            .setMessage("Ao premir Confirmar irá abrir o Maps com o destino:\n\n " + dataset.get(position).get(2) + ".")
-                            .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                                    if (ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                        DynamicToast.makeError(items_perto_activity.this, "Esta aplicação necessita de aceder à sua Localização para continuar. " +
-                                                "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
-                                        ActivityCompat.requestPermissions(items_perto_activity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-                                    }
-                                    manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
-                                        @Override
-                                        public void onLocationChanged(Location location) {
-                                            double lat = location.getLatitude();
-                                            double lon = location.getLongitude();
-                                        }
-                                    });
-                                    Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                                    if (local != null){
-                                        currlat = local.getLatitude();
-                                        currlong = local.getLongitude();
-                                        if(currlat == 0 && currlong == 0) {
-                                            local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                                            currlat = local.getLatitude();
-                                            currlong = local.getLongitude();
-                                        }
-                                    }
-                                    System.out.println(cordenadas.get(position));
-                                    String uri = "http://maps.google.com/maps?saddr=" + currlat + "," + currlong + "&daddr=" + cordenadas.get(position).get(0) + "," + cordenadas.get(position).get(1);
-                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                                    intent.setPackage("com.google.android.apps.maps");
-                                    startActivity(intent);
-                                }
-                            })
-                            .setNegativeButton("Cancelar", null).show();
-                        //TODO adicionar o item selecionado à pagina do utilizador para ser mais facil marcar como recebido. Em alternativa os items podem ser removidos todos os dias a uma hora certa tipo 4h
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                System.out.println("The read failed: " + databaseError.getCode());
-            }
-        });
+        getResult();
+        //TODO fazer botao para dar refresh á lista e chama getResult
     }
 
     @Override
@@ -155,8 +74,7 @@ public class items_perto_activity extends AppCompatActivity {
     //calcula o numero minimo de operacoes necessarias para tornar uma string noutra
     //ver https://en.wikipedia.org/wiki/Levenshtein_distance e https://www.techiedelight.com/calculate-string-similarity-java/
     //---------------------------------------------------------------------------------------
-    public static int getLevenshteinDistance(String X, String Y)
-    {
+    public static int getLevenshteinDistance(String X, String Y) {
         int m = X.length();
         int n = Y.length();
 
@@ -171,7 +89,7 @@ public class items_perto_activity extends AppCompatActivity {
         int cost;
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
-                cost = X.charAt(i - 1) == Y.charAt(j - 1) ? 0: 1;
+                cost = X.charAt(i - 1) == Y.charAt(j - 1) ? 0 : 1;
                 T[i][j] = Integer.min(Integer.min(T[i - 1][j] + 1, T[i][j - 1] + 1),
                         T[i - 1][j - 1] + cost);
             }
@@ -193,4 +111,98 @@ public class items_perto_activity extends AppCompatActivity {
         return 1.0;
     }
     //----------------------------------------------------------------------------------------------
+
+    public void getResult() {
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<List<String>> dataset = new ArrayList<>();
+                List<List<Double>> cordenadas = new ArrayList<>();
+                MyRecyclerViewAdapter adapter = new MyRecyclerViewAdapter(findViewById(R.id.item_perto_recicle).getContext(), dataset);
+                rv.setLayoutManager(llm);
+                rv.setAdapter(adapter);
+                for (DataSnapshot nomeSnapshot : dataSnapshot.getChildren()) {
+                    List<String> dados = new ArrayList<String>();
+                    List<Double> cord = new ArrayList<Double>();
+                    List<String> listaPerto = new ArrayList<String>();
+                    getCurrLocation();
+                    float[] result = new float[1];
+                    Location.distanceBetween (currlat, currlong, nomeSnapshot.child("latitude").getValue(double.class), nomeSnapshot.child("longitude").getValue(double.class), result);
+                    System.out.println(result[0]);
+                    if (nomeSnapshot.child("ativo").getValue(Boolean.class) == true && result[0] <= 5000) {
+                        dados.add(nomeSnapshot.child("nome").getValue(String.class));
+                        dados.add(nomeSnapshot.child("descricao").getValue(String.class));
+                        try {
+                            moradas = geocoder.getFromLocation(nomeSnapshot.child("latitude").getValue(double.class), nomeSnapshot.child("longitude").getValue(double.class), 5);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (moradas != null && moradas.size() > 0) {
+                            dados.add(moradas.get(0).getAddressLine(0));
+                        } else {
+                            dados.add("Localizaçao indisponivél");
+                        }
+                        dados.add(nomeSnapshot.child("foto").getValue(String.class));
+                        dataset.add(dados);
+                        cord.add(nomeSnapshot.child("latitude").getValue(double.class));
+                        cord.add(nomeSnapshot.child("longitude").getValue(double.class));
+                        cordenadas.add(cord);
+                    }
+                    adapter.notifyItemInserted(0);
+                }
+                adapter.setClickListener(new MyRecyclerViewAdapter.ItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        new AlertDialog.Builder(items_perto_activity.this)
+                                .setTitle("Pretende abrir Mapas ?")
+                                .setMessage("Ao premir Confirmar irá abrir o Maps com o destino:\n\n " + dataset.get(position).get(2) + ".")
+                                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        getCurrLocation();
+                                        System.out.println(cordenadas.get(position));
+                                        String uri = "http://maps.google.com/maps?saddr=" + currlat + "," + currlong + "&daddr=" + cordenadas.get(position).get(0) + "," + cordenadas.get(position).get(1);
+                                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                                        intent.setPackage("com.google.android.apps.maps");
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setNegativeButton("Cancelar", null).show();
+                        //TODO adicionar o item selecionado à pagina do utilizador para ser mais facil marcar como recebido. Em alternativa os items podem ser removidos todos os dias a uma hora certa tipo 4h
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("The read failed: " + databaseError.getCode());
+            }
+        });
+    }
+
+    public void getCurrLocation() {
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            DynamicToast.makeError(items_perto_activity.this, "Esta aplicação necessita de aceder à sua Localização para continuar. " +
+                    "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
+            ActivityCompat.requestPermissions(items_perto_activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
+        }
+        manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                double lat = location.getLatitude();
+                double lon = location.getLongitude();
+            }
+        });
+
+        Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (local != null) {
+            currlat = local.getLatitude();
+            currlong = local.getLongitude();
+            if (currlat == 0 && currlong == 0) {
+                local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                currlat = local.getLatitude();
+                currlong = local.getLongitude();
+            }
+        }
+        ;
+    }
 }

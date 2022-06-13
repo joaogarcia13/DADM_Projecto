@@ -86,7 +86,7 @@ public class procurar_activity extends AppCompatActivity {
                             String[] palavras = temp.split("\\W");
                             int i = 0;
                             while (i < palavras.length) {
-                                if (findSimilarity(palavras[i], newText) > 0.5 && nomeSnapshot.child("ativo").getValue(Boolean.class) == true) {
+                                if (findSimilarity(palavras[i], newText) > 0.4 && nomeSnapshot.child("ativo").getValue(Boolean.class) == true) {
                                     dados.add(nomeSnapshot.child("nome").getValue(String.class));
                                     dados.add(nomeSnapshot.child("descricao").getValue(String.class));
                                     try {

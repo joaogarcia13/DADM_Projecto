@@ -25,9 +25,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
-
-import com.firebase.geofire.GeoFire;
-import com.firebase.geofire.GeoLocation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -62,7 +59,6 @@ public class registar_item_activity extends AppCompatActivity{
     private Geocoder geocoder;
     private List<Address> moradas;
     private String morada;
-    GeoFire geoFire;
 
 
     @Override
@@ -74,7 +70,6 @@ public class registar_item_activity extends AppCompatActivity{
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         geocoder = new Geocoder(this, Locale.getDefault());
-        geoFire = new GeoFire(mDatabase.child("Items"));
 
     }
 
@@ -143,8 +138,6 @@ public class registar_item_activity extends AppCompatActivity{
                             FirebaseUser user = mAuth.getCurrentUser();
                             String itemId = mDatabase.child("items").push().getKey();
                             mDatabase.child("Items").child(itemId).setValue(new Item(nome.getText().toString(), descricao.getText().toString(), latitude, longitude, FotoB64, user.getUid()));
-                            geoFire = new GeoFire(mDatabase.child("Items").child(itemId));
-                            geoFire.setLocation("geofire", new GeoLocation(latitude, longitude));
                             DynamicToast.makeSuccess(registar_item_activity.this, "Item registado com sucesso.").show();
                             updateUI();
                         }
