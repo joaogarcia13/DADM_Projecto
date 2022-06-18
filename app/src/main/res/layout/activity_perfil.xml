@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/perfil"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background4">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/round_img"
+        android:backgroundTint="#79FFFFFF"
+        android:foreground="@drawable/profile2"
+        android:foregroundGravity="fill"
+        android:scaleType="centerInside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/perfil_user"
+        android:layout_width="228dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:textAlignment="viewStart"
+        android:textColor="#EAEAEA"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/perfil_email"
+        android:layout_width="222dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="48dp"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:textAlignment="viewStart"
+        android:textColor="#EAEAEA"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/perfil_mudar_nome"
+        android:layout_width="323dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:onClick="MudarUser"
+        android:text="Mudar Nome Utilizador"
+        android:textColor="#E4E4E4"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/perfil_mudar_pass"
+        android:layout_width="323dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="17dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:onClick="MudarPass"
+        android:text="Mudar Password"
+        android:textColor="#E4E4E4"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_mudar_nome" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/perfil_logout"
+        android:layout_width="323dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="84dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:onClick="logout"
+        android:text="Logout"
+        android:textColor="#E4E4E4"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_mudar_nome" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/perfil_menu"
+        android:layout_width="323dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="95dp"
+        android:background="@drawable/round_btn"
+        android:fontFamily="@font/ibm_plex_mono_medium"
+        android:onClick="perfilMenu"
+        android:text="@string/menu"
+        android:textColor="#ECECEC"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

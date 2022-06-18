@@ -56,7 +56,6 @@ public class registar_activity extends AppCompatActivity {
     }
 
     public void registarUtilizador(View view) {
-
         if (email.getText().toString().equals("") || pass.getText().toString().equals("") || pass2.getText().toString().equals("") || nome.getText().toString().equals("")) {
             DynamicToast.makeError(registar_activity.this, "Por favor preencha todos os campos.").show();
         } else if (!check.isChecked()) {
@@ -80,6 +79,7 @@ public class registar_activity extends AppCompatActivity {
                                 Users.put(user.getUid(), new User(email.getText().toString(), nome.getText().toString()));
                                 mDatabase.child("Users").push().setValue(Users);
                                 DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show();
+                                FirebaseAuth.getInstance().signOut();
                                 updateUI();
                             } else {
                                 String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
@@ -106,7 +106,7 @@ public class registar_activity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        Intent switchActivityIntent = new Intent(this, login_activity.class);
+        Intent switchActivityIntent = new Intent(this, splash_activity.class);
         startActivity(switchActivityIntent);
         finish();
     }

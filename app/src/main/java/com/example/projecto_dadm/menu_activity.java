@@ -13,7 +13,6 @@ public class menu_activity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
     }
 
-    //TODO fazer os eventos onclick dos botoes que ligam para as restantes paginas
     public void MudarLayoutRegistar_Item(View v){
         Intent switchActivityIntent = new Intent(this, registar_item_activity.class);
         startActivity(switchActivityIntent);
@@ -28,6 +27,11 @@ public class menu_activity extends AppCompatActivity {
 
     public void MudarLayoutPertoMim(View v){
         Intent switchActivityIntent = new Intent(this, items_perto_activity.class);
+        startActivity(switchActivityIntent);
+        finish();
+    }
+    public void mudarPerfil(View v){
+        Intent switchActivityIntent = new Intent(this, perfil_activity.class);
         startActivity(switchActivityIntent);
         finish();
     }

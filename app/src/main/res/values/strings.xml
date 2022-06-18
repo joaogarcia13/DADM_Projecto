@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Projecto_DADM</string>
+    <string name="app_name">RePack</string>
     <string name="logo_of_the_app">Logo of the app</string>
-    <string name="logotipo">Logotipo</string>
+    <string name="logotipo">RePack</string>
     <string name="sign_in">Sign In</string>
     <string name="email_username"><u>Email</u></string>
     <string name="password"><u>Password</u></string>

@@ -38,7 +38,7 @@ public class login_activity extends AppCompatActivity {
     }
 
     public void RecuperarConta(View view){
-
+        //TODO RECUPERAR CONTA
     }
     public void Autenticar(View view){
         if(email.getText().toString().equals("") || password.getText().toString().equals("")) {

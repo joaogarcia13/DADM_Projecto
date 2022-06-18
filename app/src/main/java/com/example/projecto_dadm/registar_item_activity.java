@@ -39,7 +39,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-
 public class registar_item_activity extends AppCompatActivity{
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -193,9 +192,25 @@ public class registar_item_activity extends AppCompatActivity{
             DynamicToast.makeError(registar_item_activity.this, "Por favor ative o GPS ou a ligação à internet antes de continuar.").show();
         } else {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                DynamicToast.makeError(registar_item_activity.this, "Esta aplicação necessita de aceder à sua Localização para continuar. " +
-                        "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
                 ActivityCompat.requestPermissions(registar_item_activity.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, LOCATION_PERMISSION_CODE);
+                manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
+                    @Override
+                    public void onLocationChanged(Location location) {
+
+                        double lat = location.getLatitude();
+                        double lon = location.getLongitude();
+                    }
+                });
+                Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (local != null){
+                    latitude = local.getLatitude();
+                    longitude = local.getLongitude();
+                    if(latitude == 0 && longitude == 0) {
+                        local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                        latitude = local.getLatitude();
+                        longitude = local.getLongitude();
+                    }
+                }
             } else {
                 manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
                             @Override

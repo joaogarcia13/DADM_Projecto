@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+//TODO por radio button para selecionar raio
 public class items_perto_activity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
@@ -51,7 +52,6 @@ public class items_perto_activity extends AppCompatActivity {
         geocoder = new Geocoder(this, Locale.getDefault());
         dataset = new ArrayList<String>();
         getResult();
-        //TODO fazer botao para dar refresh á lista e chama getResult
     }
 
     @Override
@@ -61,7 +61,7 @@ public class items_perto_activity extends AppCompatActivity {
         finish();
     }
 
-    public void procurarMenuBtn(View v) {
+    public void itemPertoMenu(View v) {
         updateUI();
     }
 
@@ -70,47 +70,6 @@ public class items_perto_activity extends AppCompatActivity {
         startActivity(switchActivityIntent);
         finish();
     }
-
-    //calcula o numero minimo de operacoes necessarias para tornar uma string noutra
-    //ver https://en.wikipedia.org/wiki/Levenshtein_distance e https://www.techiedelight.com/calculate-string-similarity-java/
-    //---------------------------------------------------------------------------------------
-    public static int getLevenshteinDistance(String X, String Y) {
-        int m = X.length();
-        int n = Y.length();
-
-        int[][] T = new int[m + 1][n + 1];
-        for (int i = 1; i <= m; i++) {
-            T[i][0] = i;
-        }
-        for (int j = 1; j <= n; j++) {
-            T[0][j] = j;
-        }
-
-        int cost;
-        for (int i = 1; i <= m; i++) {
-            for (int j = 1; j <= n; j++) {
-                cost = X.charAt(i - 1) == Y.charAt(j - 1) ? 0 : 1;
-                T[i][j] = Integer.min(Integer.min(T[i - 1][j] + 1, T[i][j - 1] + 1),
-                        T[i - 1][j - 1] + cost);
-            }
-        }
-
-        return T[m][n];
-    }
-
-    public static double findSimilarity(String x, String y) {
-        if (x == null || y == null) {
-            throw new IllegalArgumentException("Strings must not be null");
-        }
-
-        double maxLength = Double.max(x.length(), y.length());
-        if (maxLength > 0) {
-            // optionally ignore case if needed
-            return (maxLength - getLevenshteinDistance(x, y)) / maxLength;
-        }
-        return 1.0;
-    }
-    //----------------------------------------------------------------------------------------------
 
     public void getResult() {
         mDatabase.addValueEventListener(new ValueEventListener() {
@@ -181,28 +140,27 @@ public class items_perto_activity extends AppCompatActivity {
     public void getCurrLocation() {
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(items_perto_activity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            DynamicToast.makeError(items_perto_activity.this, "Esta aplicação necessita de aceder à sua Localização para continuar. " +
-                    "Por favor ative o acesso da aplicação á sua localização nas definições do seu dispositivo ", 100000).show();
             ActivityCompat.requestPermissions(items_perto_activity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 2);
-        }
-        manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                double lat = location.getLatitude();
-                double lon = location.getLongitude();
-            }
-        });
+            getResult();
+        }else {
+            manager.requestLocationUpdates("gps", 10, 10, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    double lat = location.getLatitude();
+                    double lon = location.getLongitude();
+                }
+            });
 
-        Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        if (local != null) {
-            currlat = local.getLatitude();
-            currlong = local.getLongitude();
-            if (currlat == 0 && currlong == 0) {
-                local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location local = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (local != null) {
                 currlat = local.getLatitude();
                 currlong = local.getLongitude();
+                if (currlat == 0 && currlong == 0) {
+                    local = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    currlat = local.getLatitude();
+                    currlong = local.getLongitude();
+                }
             }
         }
-        ;
     }
 }
