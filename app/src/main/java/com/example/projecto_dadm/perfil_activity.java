@@ -12,12 +12,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pranavpandey.android.dynamic.toasts.DynamicToast;
 
 import java.util.Objects;
 
@@ -27,6 +33,7 @@ public class perfil_activity extends AppCompatActivity {
     private TextView emailTexto;
     private FirebaseAuth FireUser;
     private DatabaseReference mDatabase;
+    private String passRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
 
 
     @Override
@@ -87,8 +94,37 @@ public class perfil_activity extends AppCompatActivity {
         alertDialog.setPositiveButton("Confirmar",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        //TODO MUDAR PASSE NA BASE DE DADOS E DAR UM SUCESSO
+                        if(Objects.equals(oldPass.getText().toString(), "") || Objects.equals(newPass.getText().toString(), "")
+                                || Objects.equals(confirmarPass.getText().toString(), "")){
+                            DynamicToast.makeError(perfil_activity.this, "Os campos não podem estar vazios..").show();
+                        }else if(!newPass.getText().toString().equals(confirmarPass.getText().toString())){
+                            DynamicToast.makeError(perfil_activity.this, "As novas passwords introduzidas não coincidem").show();
+                        }else if (!newPass.getText().toString().matches(passRegex)){
+                            DynamicToast.makeError(perfil_activity.this, "A password deve conter pelo menos 8 carácteres, uma letra maiúscula, uma letra minúscula e um número.",1999999999).show();
+                        }else {
+                            final String email = FireUser.getCurrentUser().getEmail();
+                            AuthCredential credential = EmailAuthProvider.getCredential(email, oldPass.getText().toString());
+
+                            FireUser.getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        FireUser.getCurrentUser().updatePassword(newPass.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (!task.isSuccessful()) {
+                                                    DynamicToast.makeError(perfil_activity.this, "Ocurreu um erro. Por favor tente mais tarde.").show();
+                                                } else {
+                                                    DynamicToast.makeSuccess(perfil_activity.this, "Password atualizada com sucesso.").show();
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        DynamicToast.makeError(perfil_activity.this, "Ocorreu um erro ao validar o seu pedido. Certifique-se que a Password atual introduzida está correcta.", 1999999999).show();
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
         alertDialog.setNegativeButton("Cancelar",
@@ -141,7 +177,6 @@ public class perfil_activity extends AppCompatActivity {
                     }
                 });
                 nomeTexto.setText(input.getText().toString());
-                //TODO PASSARNOE NOME PARA A BASE DE DADOS E MUDAR NA APLICAÇÃO
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
