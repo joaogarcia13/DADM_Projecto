@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -13,6 +14,10 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -40,6 +45,7 @@ public class items_perto_activity extends AppCompatActivity {
     private List<String> dataset;
     private double currlat;
     private double currlong;
+    private Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,21 @@ public class items_perto_activity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         geocoder = new Geocoder(this, Locale.getDefault());
         dataset = new ArrayList<String>();
-        getResult();
+        spin = findViewById(R.id.dropdown_item_perto);
+        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.kms, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        spin.setAdapter(adapter);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                getResult();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+        });
+        //getResult();
     }
 
     @Override
@@ -86,8 +106,9 @@ public class items_perto_activity extends AppCompatActivity {
                     getCurrLocation();
                     float[] result = new float[1];
                     Location.distanceBetween (currlat, currlong, nomeSnapshot.child("latitude").getValue(double.class), nomeSnapshot.child("longitude").getValue(double.class), result);
-                    System.out.println(result[0]);
-                    if (nomeSnapshot.child("ativo").getValue(Boolean.class) == true && result[0] <= 5000) {
+                    String temp = spin.getSelectedItem().toString();
+                    String[] numeroKm = temp.split(" ");
+                    if (nomeSnapshot.child("ativo").getValue(Boolean.class) == true && result[0] <= Integer.parseInt(numeroKm[0]) * 1000) {
                         dados.add(nomeSnapshot.child("nome").getValue(String.class));
                         dados.add(nomeSnapshot.child("descricao").getValue(String.class));
                         try {

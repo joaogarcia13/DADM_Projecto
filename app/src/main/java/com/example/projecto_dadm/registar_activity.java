@@ -78,7 +78,7 @@ public class registar_activity extends AppCompatActivity {
                                 Map<String, User> Users = new HashMap<>();
                                 Users.put(user.getUid(), new User(email.getText().toString(), nome.getText().toString()));
                                 mDatabase.child("Users").push().setValue(Users);
-                                DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show(); //TODO MUDAR PARA EMAIL ENVIADO
+                                DynamicToast.makeSuccess(registar_activity.this, "Por favor siga o link enviando para o seu email para ativar a sua conta.",1999999999).show();
                                 mAuth.getCurrentUser().sendEmailVerification()
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

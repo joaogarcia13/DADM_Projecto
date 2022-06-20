@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.pranavpandey.android.dynamic.toasts.DynamicToast;
-
-import java.util.Objects;
 
 public class login_activity extends AppCompatActivity {
     private static final String TAG = "EmailPassword";
@@ -102,7 +95,7 @@ public class login_activity extends AppCompatActivity {
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(mAuth.getCurrentUser().isEmailVerified()) {
+                            if(mAuth.getCurrentUser().isEmailVerified() || email.getText().toString().equals("teste@teste.pt")) { //TODO este equals e para tirar, esta aqui so para a conta de teste passar a verificaçao pois e um email falso
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     updateUI(user);

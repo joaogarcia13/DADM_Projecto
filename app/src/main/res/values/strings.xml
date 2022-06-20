@@ -14,4 +14,15 @@
     <string name="fotografia"><u>Fotografia</u></string>
     <string name="items_perto"><u>Items Perto</u></string>
 
+
+    <string name="Repack">dropDownMenuExample</string>
+    <string-array name="kms">
+        <item>5 Km</item>
+        <item>10 Km</item>
+        <item>15 Km</item>
+        <item>25 Km</item>
+        <item>50 Km</item>
+        <item>100 Km</item>
+    </string-array>
+
 </resources>

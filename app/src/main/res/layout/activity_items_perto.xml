@@ -17,10 +17,10 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/round_btn"
         android:fontFamily="@font/ibm_plex_mono_medium"
+        android:onClick="itemPertoMenu"
         android:text="@string/menu"
         android:textColor="#C6C6C6"
         android:textSize="16sp"
-        android:onClick="itemPertoMenu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,16 +37,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <Spinner
+            android:id="@+id/dropdown_item_perto"
+            android:layout_width="143dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="210dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="1dp"
+            android:background="@drawable/input_text"
+            android:dropDownWidth="wrap_content"
+            android:spinnerMode="dropdown"
+            android:splitMotionEvents="false"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toStartOf="@+id/item_perto_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/item_perto_title"
             android:layout_width="match_parent"
             android:layout_height="583dp"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:background="@drawable/input_text"
             android:fontFamily="@font/ibm_plex_mono_medium"
             android:text="@string/items_perto"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textColor="#1A0534"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +76,9 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             tools:layout_editor_absoluteX="26dp"
-            tools:layout_editor_absoluteY="83dp" />
+            tools:layout_editor_absoluteY="83dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
 
