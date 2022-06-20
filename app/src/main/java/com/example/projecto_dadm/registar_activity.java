@@ -78,7 +78,16 @@ public class registar_activity extends AppCompatActivity {
                                 Map<String, User> Users = new HashMap<>();
                                 Users.put(user.getUid(), new User(email.getText().toString(), nome.getText().toString()));
                                 mDatabase.child("Users").push().setValue(Users);
-                                DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show();
+                                DynamicToast.makeSuccess(registar_activity.this, "Conta criada com sucesso.").show(); //TODO MUDAR PARA EMAIL ENVIADO
+                                mAuth.getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Log.d("Sucesso", "Email enviado.");
+                                                }
+                                            }
+                                        });
                                 FirebaseAuth.getInstance().signOut();
                                 updateUI();
                             } else {
